@@ -24,20 +24,20 @@ DIS_TRAIN_FILE = workdir + 'dis-train.txt'
 #########################################################################################
 # Load data
 #########################################################################################
-user_pos_train = {}
+user_pos_train = {} # a dictionary
 with open(workdir + 'movielens-100k-train.txt')as fin:
     for line in fin:
         line = line.split()
-        uid = int(line[0])
-        iid = int(line[1])
-        r = float(line[2])
-        if r > 3.99:
+        uid = int(line[0]) #user -id
+        iid = int(line[1]) # item - id
+        r = float(line[2])# rating
+        if r > 3.99: #if rating greater than eq to 4, then consider it else UNKNOWNFEEDBACK
             if uid in user_pos_train:
-                user_pos_train[uid].append(iid)
+                user_pos_train[uid].append(iid) # user uid LIKES item iid
             else:
-                user_pos_train[uid] = [iid]
+                user_pos_train[uid] = [iid] # user uid LIKES item iid
 
-user_pos_test = {}
+user_pos_test = {} #a dictionary
 with open(workdir + 'movielens-100k-test.txt')as fin:
     for line in fin:
         line = line.split()
@@ -50,8 +50,8 @@ with open(workdir + 'movielens-100k-test.txt')as fin:
             else:
                 user_pos_test[uid] = [iid]
 
-all_users = user_pos_train.keys()
-all_users.sort()
+all_users = user_pos_train.keys() # the keys in the dic are the users
+all_users.sort() # arange the users in ascending order for 
 
 
 def dcg_at_k(r, k):
